@@ -6,13 +6,12 @@
   ],
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "module": "ESNext",
     "moduleResolution": "Node",
     "strict": true,
 
-    // ✨ ini yang penting
     "jsx": "react-jsx",
-    "types": ["react", "react-dom"]
+    "types": ["react"],
+    "lib": ["dom", "esnext"]
   }
 }

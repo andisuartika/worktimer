@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import type { ReactElement } from "react";
+
 
 
 const WITA_TZ = "Asia/Makassar";
@@ -210,7 +212,7 @@ export default function TimerWITA({
 }: {
   restAt?: TimeCfg;
   homeAt?: TimeCfg;
-}): JSX.Element {
+}): ReactElement {
   const istirahat = useCountdown(restAt);
   const pulang = useCountdown(homeAt);
 
