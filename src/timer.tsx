@@ -23,10 +23,27 @@ const DEFAULT_HOME: TimeCfg = { hours: 16, minutes: 0, label: "Waktunya pulang" 
 
 // ===== Utils zona waktu =====
 function nowInTZ(tz: string = WITA_TZ): Date {
-  return new Date(
-    new Date().toLocaleString("en-CA", { timeZone: tz, hour12: false })
-  );
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  })
+    .formatToParts(new Date())
+    .reduce((acc, p) => {
+      if (p.type !== "literal") acc[p.type] = p.value;
+      return acc;
+    }, {} as Record<string, string>);
+
+  // rakit YYYY-MM-DDTHH:mm:ss
+  const iso = `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`;
+  return new Date(iso);
 }
+
 function targetForDate(hours: number, minutes: number, baseDate: Date): Date {
   const d = new Date(baseDate);
   d.setHours(hours, minutes, 0, 0);
